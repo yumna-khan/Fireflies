@@ -46,6 +46,30 @@ summary(fireflies)
 skimr::skim(fireflies)
 
 
+class(fireflies)
+summary(fireflies)
+skimr::skim(fireflies)
+
+# RJ - Overview of dataset structure, variable types, and completeness.
+# RJ - The intro plot shows that roughly half the dataset has missing values, suggesting the need for cleaning or feature filtering before further analysis.
+plot_intro(fireflies)
+
+# RJ - Visual summary of missing data across all columns.
+# RJ - Many features show high NA proportions, so we should focus on variables with acceptable completeness to avoid biased results.
+plot_missing(fireflies)
+
+# RJ - Keep only features with 30% or less missing data.
+# RJ - This threshold keeps variables with sufficient information for analysis while removing those too incomplete to interpret reliably.
+fire_filtered <- fireflies %>% 
+  select(where(~ mean(is.na(.)) <= 0.30))
+
+# RJ - Check which variables were retained after filtering to confirm which are complete enough for use.
+colnames(fire_filtered)
+
+# RJ - Visualize numeric variable distributions to identify skew, outliers, or trends.
+# RJ - Elevation shows noticeable variation worth exploring further. Numerical IDs (geoid, specimenid, taxid) are excluded since they’re identifiers, not true continuous data.
+plot_histogram(fire_filtered)
+
 # Find the BINs and Species in the top 5 countries (top 5 countries were chosen due to the lack of samples from other countries)
 
 sort(table(fireflies$`country/ocean`), decreasing = TRUE)[1:5]
