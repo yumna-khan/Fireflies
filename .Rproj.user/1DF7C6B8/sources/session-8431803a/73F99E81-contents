@@ -40,6 +40,8 @@ fireflies %>%
   problems() %>% 
   View()
 
+# RJ - See resolving_parsing_issues file in R folder for more details. 
+
 
 # *************************************************************************
 # -------------------- SECTION 2: Explore the data  -----------------------
