@@ -35,10 +35,11 @@ library(skimr)
 
 # Main Question: Tropical areas (e.g. Costa Rica) will have a higher firefly species and BIN richness than temperate areas (e.g. Canada/US)
 
-getwd()
-
-fireflies <- read_tsv("../data/fireflies_data.tsv")
-fireflies
+fireflies = vroom::vroom("data/fireflies_data.tsv", col_select = -c(91)) %>%
+  rename(Country = 'country/ocean', 'BINs' = 'bin_uri', 'Species' = 'species')
+fireflies %>% 
+  problems() %>% 
+  View()
 
 ## _ Explore the data -------
 class(fireflies)
